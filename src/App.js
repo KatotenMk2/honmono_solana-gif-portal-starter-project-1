@@ -11,11 +11,6 @@ import {
 import idl from './idl.json';
 import kp from './keypair.json'
 
-
-
-require('dotenv').config();
-
-
 // SystemProgramはSolanaランタイムへの参照です。
 const { SystemProgram, Keypair } = web3;
 
@@ -28,18 +23,19 @@ const baseAccount = web3.Keypair.fromSecretKey(secret)
 const programID = new PublicKey(idl.metadata.address);
 
 // ネットワークをDevnetに設定します。
-// const network = clusterApiUrl('devnet');
-
-const network = clusterApiUrl(process.env.SOLANA_NETWORK);
-
+const network = clusterApiUrl('devnet');
 
 // トランザクションが完了したときに通知方法を制御します。
 const opts = {
   preflightCommitment: "processed"
 }
+
+
+
 // 定数を宣言します。
 const TWITTER_HANDLE = 'あなたのTwitterハンドル';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
+
 const TEST_GIFS = [
 	'https://media.giphy.com/media/ZqlvCTNHpqrio/giphy.gif',
 	'https://media.giphy.com/media/bC9czlgCMtw4cj8RgH/giphy.gif',
@@ -52,6 +48,7 @@ const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [gifList, setGifList] = useState([]);
+
  /*
   * Phantom Walletが接続されているかどうかを確認するための関数です。
   */
@@ -203,8 +200,6 @@ const App = () => {
       }
     }
 
-
-
   /*
    * 初回のレンダリング時にのみ、Phantom Walletが接続されているかどうか確認します。
    */
@@ -237,7 +232,6 @@ const App = () => {
       getGifList()
     }
   }, [walletAddress]);
-
 
   return (
     <div className="App">
