@@ -10,6 +10,7 @@ import {
 
 import idl from './idl.json';
 import kp from './keypair.json'
+require('dotenv').config();
 
 // SystemProgramはSolanaランタイムへの参照です。
 const { SystemProgram, Keypair } = web3;
@@ -23,7 +24,7 @@ const baseAccount = web3.Keypair.fromSecretKey(secret)
 const programID = new PublicKey(idl.metadata.address);
 
 // ネットワークをDevnetに設定します。
-const network = clusterApiUrl('devnet');
+const network = clusterApiUrl(process.env.SOLANA_NETWORK);
 
 // トランザクションが完了したときに通知方法を制御します。
 const opts = {
